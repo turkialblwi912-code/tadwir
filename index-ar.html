@@ -1,0 +1,516 @@
+﻿<html lang="ar" dir="rtl" class=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تدوير | ذكاء مستقل للنفايات الإلكترونية</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3ctext y='.9em' font-size='90'%3e♻️%3c/text%3e%3c/svg%3e">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700&amp;f[]=satoshi@400,500,700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="tad.png" as="image">
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-inset-12{inset:-3rem}.inset-0{inset:0px}.left-0{left:0px}.right-0{right:0px}.top-0{top:0px}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.my-32{margin-top:8rem;margin-bottom:8rem}.mb-32{margin-bottom:8rem}.mb-4{margin-bottom:1rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-16{margin-top:4rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-12{height:3rem}.h-16{height:4rem}.h-32{height:8rem}.h-48{height:12rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-auto{height:auto}.h-full{height:100%}.w-12{width:3rem}.w-16{width:4rem}.w-32{width:8rem}.w-6{width:1.5rem}.w-8{width:2rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-7xl{max-width:80rem}.max-w-md{max-width:28rem}.max-w-xl{max-width:36rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-hidden{overflow-x:hidden}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-transparent{border-color:transparent}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.bg-emerald-500\/10{background-color:rgb(16 185 129 / 0.1)}.bg-slate-900\/5{background-color:rgb(15 23 42 / 0.05)}.bg-transparent{background-color:transparent}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.object-contain{object-fit:contain}.object-cover{object-fit:cover}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-8{line-height:2rem}.tracking-\[0\.3em\]{letter-spacing:0.3em}.tracking-tighter{letter-spacing:-0.05em}.tracking-widest{letter-spacing:0.1em}.outline-none{outline:2px solid transparent;outline-offset:2px}.blur-2xl{--tw-blur:blur(40px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.drop-shadow-2xl{--tw-drop-shadow:drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.focus\:not-sr-only:focus{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal}.focus\:absolute:focus{position:absolute}.focus\:left-4:focus{left:1rem}.focus\:top-4:focus{top:1rem}.focus\:z-50:focus{z-index:50}.focus\:rounded-lg:focus{border-radius:0.5rem}.focus\:bg-white:focus{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.focus\:px-4:focus{padding-left:1rem;padding-right:1rem}.focus\:py-2:focus{padding-top:0.5rem;padding-bottom:0.5rem}.focus\:text-slate-900:focus{--tw-text-opacity:1;color:rgb(15 23 42 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:col-span-2{grid-column:span 2 / span 2}.sm\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.sm\:py-32{padding-top:8rem;padding-bottom:8rem}.sm\:text-4xl{font-size:2.25rem;line-height:2.5rem}.sm\:text-5xl{font-size:3rem;line-height:1}.sm\:text-6xl{font-size:3.75rem;line-height:1}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 768px){.md\:h-auto{height:auto}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:p-10{padding:2.5rem}.lg\:p-16{padding:4rem}.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:text-7xl{font-size:4.5rem;line-height:1}}@media (prefers-color-scheme: dark){.dark\:bg-cyan-500\/10{background-color:rgb(6 182 212 / 0.1)}.dark\:bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.dark\:focus\:bg-slate-800:focus{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.dark\:focus\:text-white:focus{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}}</style></head>
+<body class="overflow-x-hidden">
+
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-white dark:focus:bg-slate-800 focus:text-slate-900 dark:focus:text-white focus:rounded-lg">
+        تخط إلى المحتوى الرئيسي
+    </a>
+
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-6 transition-all duration-300 scrolled">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="tad.png" alt="TADWIR Logo" id="header-logo" class="w-16 h-16 object-cover rounded-full transition-all duration-300 scrolled">
+                <span class="hero-title text-2xl">TADWIR</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="lang-toggle" aria-label="Switch Language" class="bento-card rounded-full p-3 font-bold focus-ring">EN</button>
+                <button id="theme-toggle" aria-label="تبديل الوضع" class="bento-card rounded-full p-3 focus-ring">
+                    <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="moon-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="px-6 py-24 sm:py-32 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+
+            <section class="text-center mb-32">
+                <h1 class="hero-title text-4xl sm:text-6xl lg:text-7xl tracking-tighter">
+                    ذكاء مستقل للنفايات الإلكترونية.
+                </h1>
+                <p class="max-w-3xl mx-auto mt-6 text-lg sm:text-xl subtle-text">
+                    تدوير هو نظام كشك ذكي لإعادة التدوير يعمل بالذكاء الاصطناعي، يحول الإلكترونيات المهملة إلى موارد قيمة بكفاءة وأمان لا مثيل لهما.
+                </p>
+                <div class="mt-10">
+                    <a href="#ecosystem" class="btn-primary font-bold rounded-full py-4 px-8 text-lg focus-ring">
+                        استكشف النظام البيئي
+                    </a>
+                </div>
+            </section>
+
+            <section class="my-32 text-center flex flex-col items-center justify-center">
+                <h2 class="hero-title text-3xl sm:text-5xl tracking-tighter">
+                    قلب النظام البيئي: الكشك الذكي
+                </h2>
+                <p class="max-w-3xl mx-auto mt-6 text-lg sm:text-xl subtle-text">
+                    في طليعة ثورة النفايات الإلكترونية، يجمع الكشك الذكي بين التصميم المتطور والهندسة الدقيقة والذكاء الاصطناعي المتقدم.
+                </p>
+                <div class="mt-12 relative w-full max-w-md mx-auto flex flex-col items-center justify-center">
+                    <div class="absolute -inset-12 rounded-full bg-emerald-500/10 blur-2xl dark:bg-cyan-500/10"></div>
+                    <img src="tadwiross.png" alt="TADWIR Smart Kiosk" class="relative z-10 w-full drop-shadow-2xl object-contain mx-auto" loading="lazy" decoding="async">
+                    
+                </div>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div>
+                        <h3 class="text-xl font-bold accent-text">هيكل متين</h3>
+                        <p class="subtle-text mt-2">مصمم لتحمل الظروف القاسية مع الحفاظ على جمالية مستقبلية.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold accent-text">واجهة سهلة الاستخدام</h3>
+                        <p class="subtle-text mt-2">شاشة لمس تفاعلية ترشد المستخدمين خلال عملية إعادة التدوير بسهولة.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold accent-text">يعمل بالطاقة الشمسية</h3>
+                        <p class="subtle-text mt-2">يعمل جزئيًا بالطاقة النظيفة لتقليل بصمته الكربونية.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-32">
+                <h2 class="hero-title text-center text-3xl sm:text-5xl tracking-tighter">كيف يعمل</h2>
+                <p class="max-w-3xl mx-auto text-center mt-6 text-lg sm:text-xl subtle-text">عملية بسيطة وآمنة ومجزية في ثلاث خطوات سهلة.</p>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="flex justify-center mb-4"><i data-feather="smartphone" aria-hidden="true" class="w-12 h-12 accent-text"></i></div>
+                        <h3 class="text-xl font-bold">١. الإيداع</h3>
+                        <p class="subtle-text mt-2">ضع أجهزتك الإلكترونية القديمة في الكشك. يتعرف نظامنا على الجهاز تلقائيًا.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-center mb-4"><i data-feather="cpu" aria-hidden="true" class="w-12 h-12 accent-text"></i></div>
+                        <h3 class="text-xl font-bold">٢. المعالجة</h3>
+                        <p class="subtle-text mt-2">تقوم رؤية الذكاء الاصطناعي بفرز المكونات، ويتم إتلاف جميع البيانات بشكل آمن وفقًا لمعايير NIST.</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-center mb-4"><i data-feather="gift" aria-hidden="true" class="w-12 h-12 accent-text"></i></div>
+                        <h3 class="text-xl font-bold">٣. المكافأة</h3>
+                        <p class="subtle-text mt-2">احصل على مكافآت فورية، من قسائم إلى تبرعات خيرية، مقابل مساهمتك.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-32">
+                <h2 class="hero-title text-center text-3xl sm:text-5xl tracking-tighter">تأثيرنا البيئي</h2>
+                <p class="max-w-3xl mx-auto text-center mt-6 text-lg sm:text-xl subtle-text">بتحويل النفايات إلى موارد، نبني غدًا أكثر اخضرارًا، جهازًا تلو الآخر.</p>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+                    <div class="bento-card rounded-3xl p-8">
+                        <h3 class="text-4xl font-bold accent-text">1,500+</h3>
+                        <p class="subtle-text mt-2 font-semibold">طن من النفايات الإلكترونية المحولة</p>
+                    </div>
+                    <div class="bento-card rounded-3xl p-8">
+                        <h3 class="text-4xl font-bold accent-text">85%</h3>
+                        <p class="subtle-text mt-2 font-semibold">معدل استرداد المواد</p>
+                    </div>
+                    <div class="bento-card rounded-3xl p-8">
+                        <h3 class="text-4xl font-bold accent-text">9,200+</h3>
+                        <p class="subtle-text mt-2 font-semibold">طن من انبعاثات ثاني أكسيد الكربون التي تم توفيرها</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-32">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="bento-card rounded-3xl p-8 lg:p-10">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] accent-text">عن تدوير</p>
+
+    <h2 class="hero-title text-3xl sm:text-4xl mt-4">عن الشركة</h2>
+
+    <p class="subtle-text mt-6 text-lg leading-8">
+        "تدوير" هي منصة ذكية لإدارة النفايات الإلكترونية تجمع بين الذكاء الاصطناعي والأنظمة المادية الذكية لتبسيط عملية جمع وفحص وإعادة تدوير الإلكترونيات القديمة بأمان. مهمتنا هي تقليل التلوث الإلكتروني وتحويل الأجهزة المستعملة إلى موارد قيمة تدعم الاقتصاد الدائري.
+    </p>
+
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p class="font-bold accent-text">مهمتنا</p>
+            <p class="subtle-text mt-2 text-sm">
+                توفير حل ذكي وآمن يعزز كفاءة إعادة التدوير ويقدم تجربة موثوقة ومجزية.
+            </p>
+        </div>
+
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p class="font-bold accent-text">رؤيتنا</p>
+            <p class="subtle-text mt-2 text-sm">
+                أن نصبح روادًا في التحول نحو مستقبل أذكى وأكثر استدامة من خلال التكنولوجيا المبتكرة والمسؤولة بيئيًا.
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <h3 class="text-xl font-bold accent-text">تواصل معنا</h3>
+
+        <div class="mt-4 flex flex-wrap gap-3">
+            <a href="mailto:tadwir.co@gmail.com" class="bento-card rounded-full px-4 py-2 text-sm font-semibold focus-ring">
+                tadwir.co@gmail.com
+            </a>
+
+            <a href="https://www.instagram.com/tadwir.sc?igsh=MWFsajBlcmNmeW56MQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="bento-card rounded-full px-4 py-2 text-sm font-semibold focus-ring">
+                انستغرام
+            </a>
+
+            <a href="https://www.tiktok.com/@tadwir.sc?_r=1&_t=ZS-97oHDAH1EYP" target="_blank" rel="noopener noreferrer" class="bento-card rounded-full px-4 py-2 text-sm font-semibold focus-ring">
+                TikTok
+            </a>
+
+            <a href="https://x.com/tadwir_sc?s=11" target="_blank" rel="noopener noreferrer" class="bento-card rounded-full px-4 py-2 text-sm font-semibold focus-ring">
+                إكس
+            </a>
+        </div>
+    </div>
+</div>
+
+                    <div class="space-y-6">
+                        <div class="bento-card rounded-3xl p-6">
+                            <div class="bento-card rounded-3xl p-6">
+    <div class="overflow-hidden rounded-2xl bg-slate-900/5 p-4 dark:bg-white/5">
+
+        <svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+
+            <defs>
+
+                <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#071b25"></stop>
+                    <stop offset="100%" stop-color="#134e4a"></stop>
+                </linearGradient>
+
+                <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#22c55e"></stop>
+                    <stop offset="100%" stop-color="#38bdf8"></stop>
+                </linearGradient>
+
+                <filter id="shadow">
+                    <feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity=".3"></feDropShadow>
+                </filter>
+
+            </defs>
+
+            <rect width="800" height="520" rx="35" fill="url(#bg)"></rect>
+
+            <g stroke="#0ea5e9" stroke-opacity=".25" stroke-width="2">
+
+                <path d="M40 90 H240"></path>
+                <path d="M560 80 H760"></path>
+                <path d="M120 460 H330"></path>
+                <path d="M500 430 H740"></path>
+
+                <path d="M90 40 V160"></path>
+                <path d="M720 330 V470"></path>
+
+                <circle cx="240" cy="90" r="4" fill="#38bdf8"></circle>
+                <circle cx="560" cy="80" r="4" fill="#38bdf8"></circle>
+                <circle cx="330" cy="460" r="4" fill="#38bdf8"></circle>
+                <circle cx="500" cy="430" r="4" fill="#38bdf8"></circle>
+
+            </g>
+
+            <g filter="url(#shadow)">
+
+                <rect x="120" y="120" width="220" height="145" rx="15" fill="#111827"></rect>
+
+                <rect x="136" y="136" width="188" height="112" rx="8" fill="url(#screen)"></rect>
+
+                <path d="M105 275H355L375 300H85Z" fill="#374151"></path>
+
+                <path d="M205 150
+                       L190 185
+                       L220 180
+                       L205 210
+                       L235 205" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"></path>
+
+            </g>
+
+            <g filter="url(#shadow)">
+
+                <rect x="490" y="120" width="90" height="165" rx="18" fill="#111827"></rect>
+
+                <rect x="503" y="136" width="64" height="128" rx="10" fill="#0f172a"></rect>
+
+                <path d="M530 150
+                       L515 175
+                       L540 185
+                       L520 210
+                       L548 220" stroke="#ef4444" stroke-width="5" fill="none"></path>
+
+                <circle cx="535" cy="270" r="5" fill="#d1d5db"></circle>
+
+            </g>
+
+            <g filter="url(#shadow)">
+
+                <rect x="380" y="320" width="90" height="45" rx="8" fill="#f59e0b"></rect>
+
+                <rect x="470" y="333" width="8" height="18" rx="2" fill="#f59e0b"></rect>
+
+                <text x="425" y="350" text-anchor="middle" fill="white" font-size="22">⚡</text>
+
+            </g>
+
+            <text x="620" y="390" font-size="80" fill="#22c55e">♻</text>
+
+            <text x="140" y="395" font-size="65" fill="#ef4444">⚠</text>
+
+            <g fill="#22c55e">
+
+                <circle cx="395" cy="110" r="4"></circle>
+                <circle cx="450" cy="80" r="4"></circle>
+                <circle cx="640" cy="160" r="4"></circle>
+                <circle cx="270" cy="390" r="4"></circle>
+                <circle cx="620" cy="270" r="4"></circle>
+
+            </g>
+
+        </svg>
+
+    </div>
+</div>
+                        </div>
+
+                        <div class="bento-card rounded-3xl p-8">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] accent-text">المشكلة</p>
+
+    <h3 class="hero-title text-2xl mt-3">لماذا نحتاج إلى حل ذكي؟</h3>
+
+    <p class="subtle-text mt-4">
+        يتم التخلص من الأجهزة الإلكترونية بمعدل غير مسبوق، مما يؤدي إلى فقدان مواد قيمة ويزيد من المخاطر البيئية ومخاطر أمن البيانات الناتجة عن التخلص غير السليم.
+    </p>
+
+    <ul class="mt-6 space-y-3 text-sm subtle-text">
+        <li>نمو سريع في حجم النفايات الإلكترونية.</li>
+        <li>فقدان مواد قيمة مثل النحاس والذهب والبلاديوم.</li>
+        <li>مخاطر بيئية وأمنية للبيانات بسبب التخلص غير السليم.</li>
+    </ul>
+</div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-32 text-center">
+                <h2 class="hero-title text-3xl sm:text-5xl tracking-tighter">شركاء استراتيجيون</h2>
+                <p class="max-w-3xl mx-auto mt-6 text-lg sm:text-xl subtle-text">نتعاون بفخر مع رواد وطنيين لدفع الاقتصاد الدائري قدمًا بما يتماشى مع رؤية السعودية 2030.</p>
+                <div class="mt-16 partner-logo-container">
+                    <img src="43e0e9bbff775d11.png" class="partner-logo" style="height: 150px;">
+                    <img src="A8CAC9F0-B28C-409B-954B-6F8B8A9A4CCD.png"  class="partner-logo" style="height: 150px;">
+                    <img src="BB943A03-324B-4839-9A4F-74293C8E2C73.png"  class="partner-logo" style="height: 150px;">
+                    <img src="896b111a284d7911.png" class="partner-logo" style="height: 150px;">
+                </div>
+            </section>
+
+            <section id="ecosystem" class="perspective-viewport">
+                <div id="bento-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-6 interactive-3d">
+
+                    <div class="bento-card rounded-3xl p-8 lg:col-span-2">
+                        <div class="interactive-3d-inner h-full flex flex-col">
+                            <h2 class="section-title text-2xl accent-text">فرز بواسطة رؤية الحاسوب والذكاء الاصطناعي</h2>
+                            <p class="subtle-text mt-2 mb-4">تصنيف المكونات في أجزاء من الثانية لتحقيق أقصى استرداد للموارد.</p>
+                            <div class="flex-grow relative rounded-xl overflow-hidden mt-4">
+                                <div class="absolute inset-0 scanner-grid"></div>
+                                <div class="scanner-beam"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <p class="subtle-text text-sm">معدل الاستدلال</p>
+                                        <p id="inference-rate" class="font-mono text-4xl font-bold">49.82 ms</p>
+                                        <p class="accent-text text-sm font-bold">CLASSIFICATION: [COPPER_COIL]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bento-card rounded-3xl p-8">
+                        <div class="interactive-3d-inner h-full flex flex-col">
+                            <h2 class="section-title text-2xl accent-text">إتلاف آمن للبيانات</h2>
+                            <p class="subtle-text mt-2 mb-4">قياسات التمزيق المتوافقة مع NIST SP 800-88 تضمن أن بياناتك غير قابلة للاسترداد.</p>
+                            <div class="flex-grow flex items-center justify-center mt-4">
+                                <svg class="w-32 h-32 accent-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    <circle cx="12" cy="16" r="1"></circle>
+                                </svg>
+                            </div>
+                             <p class="subtle-text text-center text-xs font-mono mt-4">سجل التمزيق الموثق بالتشفير: <br> 0x4A...F31</p>
+                        </div>
+                    </div>
+
+                    <div class="bento-card rounded-3xl p-8">
+                        <div class="interactive-3d-inner h-full flex flex-col">
+                            <h2 class="section-title text-2xl accent-text">خزنة الهندسة</h2>
+                            <p class="subtle-text mt-2 mb-4">الوصول إلى مخططاتنا ومخططات الأجهزة الصناعية مفتوحة المصدر.</p>
+                            <div class="blueprint-grid flex-grow mt-4">
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">MECH-01</a>
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">ELEC-A2</a>
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">AI-MOD-3</a>
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">SPEC-V4</a>
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">CAD-007</a>
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">PCB-R2</a>
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">ASSY-F1</a>
+                                <a href="javascript:void(0);" class="blueprint-item rounded-lg flex items-center justify-center text-xs font-bold focus-ring">FIRM-9B</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bento-card rounded-3xl p-8 lg:col-span-2">
+                        <div class="interactive-3d-inner h-full flex flex-col">
+                            <h2 class="section-title text-2xl accent-text">التحليلات والتأثير</h2>
+                            <p class="subtle-text mt-2 mb-4">قياسات حوسبة الحافة المباشرة وتقارير التأثير المؤسسي القابلة للتنزيل.</p>
+                            <div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                                <div class="relative h-48 md:h-auto">
+                                    <canvas id="telemetryChart"></canvas>
+                                </div>
+                                <div class="flex flex-col justify-center gap-4">
+                                    <a href="javascript:void(0);" class="bento-card rounded-xl p-4 flex items-center gap-4 focus-ring">
+                                        <svg class="w-8 h-8 accent-text flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                        <div>
+                                            <p class="font-bold">ملف الاستثمار للربع الثالث</p>
+                                            <p class="text-xs subtle-text">PDF / 14.2 MB</p>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0);" class="bento-card rounded-xl p-4 flex items-center gap-4 focus-ring">
+                                        <svg class="w-8 h-8 accent-text flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                        <div>
+                                            <p class="font-bold">تقرير التأثير لعام 2026</p>
+                                            <p class="text-xs subtle-text">PDF / 8.9 MB</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="my-32 max-w-4xl mx-auto">
+                <h2 class="hero-title text-center text-3xl sm:text-5xl tracking-tighter">الأسئلة الشائعة</h2>
+                <div class="mt-12 space-y-4">
+                    <details class="bento-card rounded-xl p-6">
+                        <summary class="font-bold text-lg flex justify-between items-center focus-ring rounded-lg"><span>ما أنواع النفايات الإلكترونية التي تقبلونها؟</span><i data-feather="chevron-down" aria-hidden="true"></i></summary>
+                        <p class="subtle-text mt-4">نقبل مجموعة واسعة من الإلكترونيات الصغيرة والمتوسطة، بما في ذلك الهواتف الذكية والأجهزة اللوحية وأجهزة الكمبيوتر المحمولة والملحقات ذات الصلة. نعمل باستمرار على توسيع قدراتنا.</p>
+                    </details>
+                    <details class="bento-card rounded-xl p-6">
+                        <summary class="font-bold text-lg flex justify-between items-center focus-ring rounded-lg"><span>هل بياناتي الشخصية آمنة؟</span><i data-feather="chevron-down" aria-hidden="true"></i></summary>
+                        <p class="subtle-text mt-4">بالتأكيد. أمن البيانات هو أولويتنا القصوى. نستخدم طرق إتلاف البيانات المتوافقة مع NIST SP 800-88، ونزودك بشهادة إتلاف مشفرة.</p>
+                    </details>
+                    <details class="bento-card rounded-xl p-6">
+                        <summary class="font-bold text-lg flex justify-between items-center focus-ring rounded-lg"><span>كيف أحصل على المكافأة؟</span><i data-feather="chevron-down" aria-hidden="true" class="transform transition-transform"></i></summary>
+                        <p class="subtle-text mt-4">تُصدر المكافآت فورًا إلى محفظتك الرقمية أو عبر قسيمة مطبوعة من الكشك. يمكنك الاختيار من بين مجموعة متنوعة من الخيارات من شركائنا أو التبرع بمكافأتك لجمعية خيرية.</p>
+                    </details>
+                    <details class="bento-card rounded-xl p-6">
+                        <summary class="font-bold text-lg flex justify-between items-center focus-ring rounded-lg"><span>أين يمكنني العثور على كشك تدوير؟</span><i data-feather="chevron-down" aria-hidden="true" class="transform transition-transform"></i></summary>
+                        <p class="subtle-text mt-4">يتم نشر أكشاكنا في المدن الرئيسية في جميع أنحاء المملكة العربية السعودية. تحقق من تطبيقنا المحمول القادم للحصول على خريطة حية لجميع المواقع النشطة بالقرب منك.</p>
+                    </details>
+                    <details class="bento-card rounded-xl p-6">
+                        <summary class="font-bold text-lg flex justify-between items-center focus-ring rounded-lg"><span>هل تقدمون برامج شراكة للشركات؟</span><i data-feather="chevron-down" aria-hidden="true"></i></summary>
+                        <p class="subtle-text mt-4">نعم، نقدم حلولاً مخصصة للشركات لإدارة نفاياتها الإلكترونية بمسؤولية. ويتضمن ذلك خدمات الجمع بكميات كبيرة وتقارير مفصلة عن التأثير. يرجى استخدام نموذج الاتصال أدناه للاستفسارات.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="my-32">
+                <div class="bento-card rounded-3xl p-8 lg:p-16 text-center">
+                    <h2 class="hero-title text-3xl sm:text-5xl tracking-tighter">انضم إلى الثورة</h2>
+                    <p class="max-w-2xl mx-auto mt-6 text-lg sm:text-xl subtle-text">سواء كنت فردًا لديه هاتف قديم أو شركة لديها كميات كبيرة من النفايات الإلكترونية، لدينا الحل المناسب لك. تواصل معنا لمعرفة المزيد.</p>
+                    <form id="contact-form" class="mt-8 max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" name="name" placeholder="اسمك" class="bento-card rounded-lg p-3 bg-transparent border border-transparent focus-ring outline-none">
+                        <input type="email" name="email" placeholder="بريدك الإلكتروني" class="bento-card rounded-lg p-3 bg-transparent border border-transparent focus-ring outline-none">
+                        <textarea name="message" placeholder="رسالتك..." rows="4" class="sm:col-span-2 bento-card rounded-lg p-3 bg-transparent border border-transparent focus-ring outline-none"></textarea>
+                        <button type="submit" class="sm:col-span-2 btn-primary font-bold rounded-full py-3 px-8 text-lg focus-ring">إرسال الرسالة</button>
+                    </form>
+                </div>
+            </section>
+
+        </div>
+    </main>
+ <div class="mt-16 partner-logo-container">
+                    <img src="logo-white-h-cropped-avif.svg"  class="partner-logo" style="height: 150px;">
+                    <img src="vision_logo.svg"  class="partner-logo" style="height: 150px;">
+                    <img src="صناعة_سعودية.svg.png" class="partner-logo" style="height: 150px;">
+                </div>
+    <footer class="text-center p-8 mt-16">
+        <p class="subtle-text text-sm">© 2026 صناعات تدوير. جميع الحقوق محفوظة. عصر جديد من الاقتصاد الدائري.</p>
+    </footer>
+
+    <script src="script.js" type="module"></script>
+<script>
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+</script>
+<script>
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+</script>
+
+</body></html>
