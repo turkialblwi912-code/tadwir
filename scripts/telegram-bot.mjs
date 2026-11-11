@@ -31,7 +31,8 @@ const STORE_DIR = 'assets/store';
 const MAX_BYTES = 10 * 1024 * 1024;
 const SOON = 'يظهر في الموقع خلال دقيقة تقريباً.';
 
-if (!TOKEN) { console.error('TELEGRAM_BOT_TOKEN is not set.'); process.exit(1); }
+// Not set up yet: finish quietly, so the schedule does not report a failure every few minutes.
+if (!TOKEN) { console.log('TELEGRAM_BOT_TOKEN is not set yet. Add it as a repository secret to switch the bot on.'); process.exit(0); }
 
 let listenMin = Number(process.env.LISTEN_MINUTES || 0);
 if (process.env.LISTEN_UNTIL && Date.now() > Date.parse(process.env.LISTEN_UNTIL + 'T23:59:59Z')) listenMin = 0;
