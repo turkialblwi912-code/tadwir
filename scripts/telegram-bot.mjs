@@ -50,10 +50,15 @@ async function api(method, params = {}, waitSec = 0) {
     return { ok: false, description: 'network error' };
   }
 }
-const say = (chatId, text, replyTo) => api('sendMessage', {
-  chat_id: chatId, text, parse_mode: 'HTML', disable_web_page_preview: true,
-  ...(replyTo ? { reply_to_message_id: replyTo, allow_sending_without_reply: true } : {})
-});
+// o.kb = inline buttons, o.editMid = update that menu message instead of sending a new one
+async function say(chatId, text, replyTo, o = {}) {
+  const base = { chat_id: chatId, text, parse_mode: 'HTML', disable_web_page_preview: true, ...(o.kb ? { reply_markup: { inline_keyboard: o.kb } } : {}) };
+  if (o.editMid) {
+    const r = await api('editMessageText', { ...base, message_id: o.editMid });
+    if (r.ok) return r;
+  }
+  return api('sendMessage', { ...base, ...(replyTo ? { reply_to_message_id: replyTo, allow_sending_without_reply: true } : {}) });
+}
 async function download(fileId) {
   const info = await api('getFile', { file_id: fileId });
   if (!info.ok || !info.result.file_path) return null;
@@ -116,6 +121,170 @@ const HELP = [
 ].join('\n');
 
 /* ---------- one message ---------- */
+/* ---------- buttons ---------- */
+const pending = new Map(); // chat id → what the next message answers, e.g. { a: 'price', pid: 'wave' }
+const B = (text, data) => ({ text, callback_data: data });
+const CANCEL = [[B('✖️ إلغاء', 'c')]];
+const MAIN = '<b>لوحة تحكم موقع تدوير</b>\nاختر من الأزرار 👇\n\n📸 لإضافة صورة إلى «روح الفريق»: أرسل الصورة مع نصها هنا مباشرة.';
+const mainKb = () => [[B('🛍 المنتجات', 'pl'), B('➕ منتج جديد', 'new')], [B('📸 صور روح الفريق', 'g')], [B('❓ شرح سريع', 'h')]];
+const listKb = (products) => [
+  ...products.map((p) => [B(`${p.status === 'available' ? '🟢' : '🔴'} ${p.nameAr} · ${p.price}`, 'p:' + p.id)]),
+  [B('➕ منتج جديد', 'new')], [B('⬅️ رجوع', 'm')]
+];
+function card(p, cur, note) {
+  const out = p.status !== 'available';
+  const text = (note ? note + '\n\n' : '') + `<b>${esc(p.nameAr)}</b>${p.nameEn ? ' / ' + esc(p.nameEn) : ''}\n${statusLine(p, cur)}\n${esc(p.descAr || '')}`;
+  const id = p.id;
+  return { text, kb: [
+    [B('💰 السعر', 'pp:' + id), B('🔢 الكمية', 'pq:' + id)],
+    [B(out ? '🟢 رجّعه متوفر' : '🔴 نفدت الكمية', 'ps:' + id)],
+    [B('✏️ الاسم', 'pn:' + id), B('📝 الوصف', 'pd:' + id)],
+    [B('🖼 الصورة', 'pi:' + id), B('🔤 الاسم بالإنجليزي', 'pe:' + id)],
+    [B('🗑 حذف المنتج', 'px:' + id)],
+    [B('⬅️ المنتجات', 'pl')]
+  ] };
+}
+const galleryMenu = (gallery) => ({
+  text: `<b>صور روح الفريق</b> (${gallery.length})\nلإضافة صورة: أرسلها هنا مع نصها.\nللحذف اضغط على الصورة من القائمة:`,
+  kb: [...gallery.slice(-6).reverse().map((g) => [B('🗑 ' + ((g.caption || 'صورة بدون نص').replace(/\s+/g, ' ').slice(0, 28)), 'gd:' + g.mid)]), [B('⬅️ رجوع', 'm')]]
+});
+const botMadeFile = (f) => f && new RegExp(`^${STORE_DIR}/p\\d+[\\w.\\-]*$`).test(f);
+
+async function handleCallback(cq, ctx) {
+  const msg = cq.message;
+  await api('answerCallbackQuery', { callback_query_id: cq.id });
+  if (!msg) return;
+  const chatId = String(msg.chat.id);
+  if (!ALLOWED.includes(chatId)) return;
+  const { products, gallery, settings } = ctx;
+  const cur = settings.currency || 'ريال';
+  const show = (text, kb) => ctx.replies.push([chatId, text, null, { kb, editMid: msg.message_id }]);
+  const [act, arg] = String(cq.data || '').split(':');
+  const p = arg ? products.find((x) => x.id === arg) : null;
+  const ask = (a, text, extra) => { pending.set(chatId, { a, pid: arg, ...(extra || {}) }); show(text, CANCEL); };
+  const prev = pending.get(chatId);
+  pending.delete(chatId);
+
+  if (act === 'm' || act === 'c') return show(MAIN, mainKb());
+  if (act === 'h') return show(HELP, [[B('⬅️ رجوع', 'm')]]);
+  if (act === 'pl') return show(products.length ? '<b>المنتجات</b>\nاضغط على المنتج للتحكم فيه:' : 'لا توجد منتجات بعد.', listKb(products));
+  if (act === 'new') return ask('new_name', '➕ <b>منتج جديد</b>\nاكتب <b>اسم</b> المنتج:', { d: {} });
+  if (act === 'skip') { pending.set(chatId, { a: 'new_photo', d: (prev && prev.d) || {} }); return show('أرسل الآن <b>صورة</b> المنتج 🖼', CANCEL); }
+  if (act === 'g') { const g = galleryMenu(gallery); return show(g.text, g.kb); }
+  if (act === 'gd') {
+    const i = gallery.findIndex((g) => String(g.mid) === arg);
+    if (i >= 0) {
+      const [gone] = gallery.splice(i, 1);
+      if (/^assets\/team\/[\w.\-]+$/.test(gone.file)) fs.rmSync(gone.file, { force: true });
+      ctx.changed = true;
+    }
+    const g = galleryMenu(gallery);
+    return show((i >= 0 ? '🗑 حُذفت الصورة. ' + SOON + '\n\n' : '') + g.text, g.kb);
+  }
+  if (act === 'gc') return ask('gcap', 'اكتب <b>النص الجديد</b> للصورة:', { mid: Number(arg) });
+  if (!p) return show('⚠️ هذا المنتج غير موجود.', listKb(products));
+
+  if (act === 'p') { const c = card(p, cur); return show(c.text, c.kb); }
+  if (act === 'pp') return ask('price', `💰 اكتب <b>السعر الجديد</b> لـ «${esc(p.nameAr)}» (رقم فقط):`);
+  if (act === 'pq') return ask('qty', `🔢 اكتب <b>الكمية</b> المتوفرة من «${esc(p.nameAr)}» (0 = نفدت):`);
+  if (act === 'pn') return ask('name', `✏️ اكتب <b>الاسم الجديد</b> لـ «${esc(p.nameAr)}»:`);
+  if (act === 'pe') return ask('en', `🔤 اكتب <b>الاسم بالإنجليزي</b> لـ «${esc(p.nameAr)}»:`);
+  if (act === 'pd') return ask('desc', `📝 اكتب <b>الوصف الجديد</b> لـ «${esc(p.nameAr)}»:`);
+  if (act === 'pi') return ask('pimg', `🖼 أرسل <b>الصورة الجديدة</b> لـ «${esc(p.nameAr)}»:`);
+  if (act === 'ps') {
+    if (p.status === 'available') { p.status = 'soldout'; if (Number.isInteger(p.stock)) p.stock = 0; }
+    else { p.status = 'available'; if (p.stock === 0) delete p.stock; }
+    ctx.changed = true;
+    const c = card(p, cur, '✅ تم. ' + SOON);
+    return show(c.text, c.kb);
+  }
+  if (act === 'px') return show(`متأكد أنك تريد حذف «${esc(p.nameAr)}»؟`, [[B('🗑 نعم، احذفه', 'pX:' + p.id), B('لا', 'p:' + p.id)]]);
+  if (act === 'pX') {
+    products.splice(products.indexOf(p), 1);
+    for (const f of [p.image, p.image2]) if (botMadeFile(f)) fs.rmSync(f, { force: true });
+    ctx.changed = true;
+    return show(`🗑 حُذف «${esc(p.nameAr)}». ${SOON}`, listKb(products));
+  }
+}
+
+// The next message after a button like "السعر" is the answer to it.
+async function answerPending(pend, msg, ctx, reply, fileId, text) {
+  const chatId = String(msg.chat.id);
+  const { products, gallery, settings } = ctx;
+  const cur = settings.currency || 'ريال';
+  const p = pend.pid ? products.find((x) => x.id === pend.pid) : null;
+  const again = (t) => reply(t, { kb: CANCEL });
+  const done = (note) => { pending.delete(chatId); const c = card(p, cur, note); reply(c.text, { kb: c.kb }); };
+
+  if (pend.a === 'new_name') {
+    if (!text) return again('اكتب اسم المنتج نصاً:');
+    pend.d.name = text.slice(0, 60); pend.a = 'new_price';
+    return again('💰 اكتب <b>السعر</b> (رقم فقط):');
+  }
+  if (pend.a === 'new_price') {
+    const price = Number(digits(text).replace(/[^\d.]/g, ''));
+    if (!(price > 0) || price > 100000) return again('⚠️ اكتب السعر رقماً فقط، مثل: 45');
+    pend.d.price = price; pend.a = 'new_desc';
+    return reply('📝 اكتب <b>وصفاً قصيراً</b> للمنتج، أو اضغط تخطي:', { kb: [[B('⏭ تخطي', 'skip')], ...CANCEL] });
+  }
+  if (pend.a === 'new_desc') {
+    if (!text) return again('اكتب الوصف نصاً:');
+    pend.d.desc = text.slice(0, 300); pend.a = 'new_photo';
+    return again('أرسل الآن <b>صورة</b> المنتج 🖼');
+  }
+  if (pend.a === 'new_photo' || pend.a === 'pimg') {
+    if (!fileId) return again('أرسل صورة (وليس نصاً) 🖼');
+    if (pend.a === 'pimg' && !p) { pending.delete(chatId); return reply('⚠️ هذا المنتج غير موجود.', { kb: mainKb() }); }
+    const img = await download(fileId);
+    if (!img) return again('⚠️ تعذّر تنزيل الصورة. أعد إرسالها.');
+    fs.mkdirSync(STORE_DIR, { recursive: true });
+    if (pend.a === 'pimg') {
+      const file = `${STORE_DIR}/${p.id}-${msg.message_id}.${img.ext}`;
+      fs.writeFileSync(file, img.buf);
+      for (const f of [p.image, p.image2]) if (botMadeFile(f)) fs.rmSync(f, { force: true });
+      p.image = file; delete p.image2;
+      ctx.changed = true;
+      return done('✅ تم تغيير الصورة. ' + SOON);
+    }
+    const d = pend.d || {};
+    if (!d.name || !(d.price > 0)) { pending.delete(chatId); return reply('⚠️ انقطعت إضافة المنتج. ابدأ من جديد.', { kb: mainKb() }); }
+    const id = 'p' + msg.message_id;
+    const file = `${STORE_DIR}/${id}.${img.ext}`;
+    fs.writeFileSync(file, img.buf);
+    const np = { id, nameAr: d.name, nameEn: '', descAr: d.desc || '', descEn: '', price: d.price, status: 'available', image: file };
+    products.push(np);
+    ctx.changed = true;
+    pending.delete(chatId);
+    const c = card(np, cur, `✅ أُضيف المنتج. ${SOON}`);
+    return reply(c.text, { kb: c.kb });
+  }
+  if (pend.a === 'gcap') {
+    const ph = gallery.find((g) => g.mid === pend.mid);
+    pending.delete(chatId);
+    if (!ph) return reply('⚠️ هذه الصورة غير موجودة في الموقع.', { kb: mainKb() });
+    ph.caption = text.slice(0, 600); ctx.changed = true;
+    return reply('✅ تم تعديل نص الصورة. ' + SOON, { kb: mainKb() });
+  }
+  if (!p) { pending.delete(chatId); return reply('⚠️ هذا المنتج غير موجود.', { kb: mainKb() }); }
+  if (!text) return again('اكتب القيمة نصاً:');
+  if (pend.a === 'price') {
+    const price = Number(digits(text).replace(/[^\d.]/g, ''));
+    if (!(price > 0) || price > 100000) return again('⚠️ اكتب السعر رقماً فقط، مثل: 45');
+    p.price = price; ctx.changed = true;
+    return done(`✅ السعر صار ${price} ${cur}. ${SOON}`);
+  }
+  if (pend.a === 'qty') {
+    const q = digits(text).trim();
+    if (!/^\d{1,4}$/.test(q)) return again('⚠️ اكتب الكمية رقماً فقط، مثل: 5');
+    p.stock = Number(q); p.status = p.stock > 0 ? 'available' : 'soldout'; ctx.changed = true;
+    return done(p.stock > 0 ? `✅ الكمية صارت ${p.stock}. ${SOON}` : `🔴 صارت «نفدت الكمية». ${SOON}`);
+  }
+  if (pend.a === 'name') { p.nameAr = text.slice(0, 60); ctx.changed = true; return done('✅ تم تغيير الاسم. ' + SOON); }
+  if (pend.a === 'en') { p.nameEn = text.slice(0, 60); ctx.changed = true; return done('✅ تم حفظ الاسم بالإنجليزي. ' + SOON); }
+  if (pend.a === 'desc') { p.descAr = text.slice(0, 300); ctx.changed = true; return done('✅ تم تغيير الوصف. ' + SOON); }
+  pending.delete(chatId);
+}
+
 const albumProduct = new Map(); // media_group_id → product id (second album photo becomes image2)
 
 async function handle(msg, edited, ctx) {
@@ -127,7 +296,7 @@ async function handle(msg, edited, ctx) {
   }
   const { products, gallery, settings } = ctx;
   const cur = settings.currency || 'ريال';
-  const reply = (t) => ctx.replies.push([chatId, t, msg.message_id]);
+  const reply = (t, o) => ctx.replies.push([chatId, t, msg.message_id, o]);
   const fileId = msg.photo && msg.photo.length ? msg.photo[msg.photo.length - 1].file_id
     : (msg.document && /^image\/(jpeg|png|webp)$/.test(msg.document.mime_type || '') ? msg.document.file_id : '');
   const caption = String(msg.caption || '').trim();
@@ -137,6 +306,14 @@ async function handle(msg, edited, ctx) {
   if (edited) {
     const ph = gallery.find((g) => g.mid === msg.message_id);
     if (ph && fileId && ph.caption !== caption) { ph.caption = caption.slice(0, 600); ctx.changed = true; reply('✅ تم تعديل نص الصورة. ' + SOON); }
+    return;
+  }
+
+  /* ----- answering a button's question ----- */
+  const pend = pending.get(chatId);
+  if (pend) {
+    if (/^(الغاء|إلغاء|cancel|\/start|\/cancel)$/i.test(text)) { pending.delete(chatId); reply(MAIN, { kb: mainKb() }); return; }
+    await answerPending(pend, msg, ctx, reply, fileId, text);
     return;
   }
 
@@ -194,7 +371,7 @@ async function handle(msg, edited, ctx) {
     fs.writeFileSync(file, img.buf);
     gallery.push({ file, caption: caption.slice(0, 600), date, mid: msg.message_id });
     ctx.changed = true;
-    if (!msg.media_group_id || caption) reply('✅ أُضيفت الصورة إلى «روح الفريق». ' + SOON);
+    if (!msg.media_group_id || caption) reply('✅ أُضيفت الصورة إلى «روح الفريق». ' + SOON, { kb: [[B('✏️ تعديل النص', 'gc:' + msg.message_id), B('🗑 حذف', 'gd:' + msg.message_id)], [B('🏠 القائمة', 'm')]] });
     return;
   }
 
@@ -203,9 +380,10 @@ async function handle(msg, edited, ctx) {
   const t = norm(text);
   const repliedMid = msg.reply_to_message && msg.reply_to_message.message_id;
 
-  if (/^(\/start|\/help|مساعده|help|الاوامر)/.test(t)) { reply(HELP); return; }
+  if (/^(\/start|\/menu|قائمه|القائمه|menu|مرحبا|هلا|السلام عليكم)/.test(t)) { reply(MAIN, { kb: mainKb() }); return; }
+  if (/^(\/help|مساعده|help|الاوامر)/.test(t)) { reply(HELP, { kb: [[B('🏠 القائمة', 'm')]] }); return; }
 
-  if (/^(\/products|المنتجات|منتجات|القائمه)$/.test(t)) {
+  if (/^(\/products|المنتجات|منتجات)$/.test(t)) {
     reply(products.length
       ? '<b>المنتجات</b>\n' + products.map((p, i) => `${i + 1}. ${esc(p.nameAr)}${p.nameEn ? ' / ' + esc(p.nameEn) : ''}\n    ${statusLine(p, cur)}`).join('\n')
       : 'لا توجد منتجات بعد.');
@@ -292,7 +470,7 @@ async function handle(msg, edited, ctx) {
     reply(`✅ تم تعديل «${esc(p.nameAr)}». ${SOON}`);
     return;
   }
-  reply('لم أفهم الأمر. أرسل <code>مساعدة</code> لعرض الأوامر.');
+  reply(MAIN, { kb: mainKb() });
 }
 
 /* ---------- save & publish ---------- */
@@ -313,11 +491,12 @@ function publish() {
 }
 
 /* ---------- main loop ---------- */
+await api('setMyCommands', { commands: [{ command: 'start', description: 'القائمة الرئيسية' }] });
 let offset = (readJson(STATE, {}).offset) || (readJson(GALLERY, {}).offset) || 0;
 let passes = 0;
 do {
   const waitSec = listenMin ? Math.max(0, Math.min(50, Math.floor((deadline - Date.now()) / 1000))) : 0;
-  const res = await api('getUpdates', { offset, timeout: waitSec, allowed_updates: ['message', 'edited_message', 'channel_post', 'edited_channel_post'] }, waitSec);
+  const res = await api('getUpdates', { offset, timeout: waitSec, allowed_updates: ['message', 'edited_message', 'channel_post', 'edited_channel_post', 'callback_query'] }, waitSec);
   passes++;
   if (!res.ok) {
     console.error('getUpdates failed:', res.description);
@@ -334,6 +513,10 @@ do {
 
   for (const up of res.result) {
     offset = up.update_id + 1;
+    if (up.callback_query) {
+      try { await handleCallback(up.callback_query, ctx); } catch (e) { console.error('button error:', e.message); }
+      continue;
+    }
     const edited = up.edited_message || up.edited_channel_post;
     const msg = up.message || up.channel_post || edited;
     if (!msg) continue;
@@ -348,8 +531,9 @@ do {
     saved = publish();
     console.log(saved ? 'Saved changes.' : 'Could not publish changes.');
   }
-  for (const [chatId, text, replyTo] of ctx.replies) {
-    await say(chatId, saved ? text : '⚠️ تعذّر حفظ التغيير الآن. أعد المحاولة بعد قليل.', replyTo);
+  for (const [chatId, text, replyTo, o] of ctx.replies) {
+    if (saved) await say(chatId, text, replyTo, o || {});
+    else await say(chatId, '⚠️ تعذّر حفظ التغيير الآن. أعد المحاولة بعد قليل.', replyTo, { kb: mainKb() });
   }
 } while (listenMin && Date.now() < deadline);
 
