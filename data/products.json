@@ -1,0 +1,76 @@
+{
+  "_help": "عدّل هذا الملف فقط لتغيير المنتجات والأسعار والحالة. status: available = متوفر، soldout = نفدت الكمية. السعر بالريال. whatsapp: رقم الواتساب الذي تصله الطلبات (بالصيغة الدولية بدون + أو مسافات).",
+  "settings": {
+    "currency": "ريال",
+    "currencyEn": "SAR",
+    "whatsapp": "966545400462",
+    "maxQtyPerItem": 10
+  },
+  "products": [
+    {
+      "id": "wave",
+      "nameAr": "الموجة",
+      "nameEn": "Wave",
+      "descAr": "ميدالية من بوردة بلوتوث صوتية HW-770 حمراء بمكثفاتها ومنفذها الأصلي.",
+      "descEn": "Keychain made from a red HW-770 Bluetooth audio board, capacitors and port intact.",
+      "price": 45,
+      "status": "available",
+      "image": "assets/store/wave.jpg",
+      "image2": "assets/store/wave-2.jpg"
+    },
+    {
+      "id": "guardian",
+      "nameAr": "الحارس",
+      "nameEn": "Guardian",
+      "descAr": "ميدالية من بوردة حماية بطاريات ليثيوم 3S مع حلقة نجمة.",
+      "descEn": "Keychain made from a 3S lithium battery protection board, with a star clasp.",
+      "price": 35,
+      "status": "available",
+      "image": "assets/store/guardian.jpg",
+      "image2": "assets/store/guardian-2.jpg"
+    },
+    {
+      "id": "link",
+      "nameAr": "وصل",
+      "nameEn": "Link",
+      "descAr": "ميدالية من كرت واي فاي لابتوب Broadcom بأطرافه الذهبية.",
+      "descEn": "Keychain made from a Broadcom laptop Wi-Fi card with its gold contacts.",
+      "price": 40,
+      "status": "available",
+      "image": "assets/store/link.jpg",
+      "image2": "assets/store/link-2.jpg"
+    },
+    {
+      "id": "core",
+      "nameAr": "النواة",
+      "nameEn": "Core",
+      "descAr": "ميدالية من اللوحة الأم لجوال Samsung Galaxy S3 بمعالجها وشرائحها.",
+      "descEn": "Keychain made from a Samsung Galaxy S3 motherboard, processor and chips included.",
+      "price": 50,
+      "status": "available",
+      "image": "assets/store/core.jpg"
+    },
+    {
+      "id": "pulse",
+      "nameAr": "نبض",
+      "nameEn": "Pulse",
+      "descAr": "قلادة من بوردة بلوتوث صوتية حمراء بسلسلة كرات معدنية.",
+      "descEn": "Necklace made from a red Bluetooth audio board on a metal ball chain.",
+      "price": 40,
+      "status": "available",
+      "image": "assets/store/pulse.jpg",
+      "image2": "assets/store/pulse-2.jpg"
+    },
+    {
+      "id": "tune",
+      "nameAr": "نغمة",
+      "nameEn": "Tune",
+      "descAr": "قلادة من بوردة صوت ومحوّل جهد صغير بسلسلة كرات معدنية.",
+      "descEn": "Necklace made from a sound board and a tiny voltage converter on a ball chain.",
+      "price": 30,
+      "status": "available",
+      "image": "assets/store/tune.jpg",
+      "image2": "assets/store/tune-2.jpg"
+    }
+  ]
+}
